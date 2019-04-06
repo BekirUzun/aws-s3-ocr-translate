@@ -1,14 +1,10 @@
 import { Injectable } from "@angular/core";
-
 import * as AWSCognito from "amazon-cognito-identity-js";
-import { SystemVariableProvider } from "../system-variable/system-variable";
+import { config } from "../../config/config"
 
 @Injectable()
 export class CognitoServiceProvider {
-
-  private POOL_SETTING = new SystemVariableProvider().SYSTEM_PARAMS.COGNITO_POOL;
-  
-  _USER_POOL = new AWSCognito.CognitoUserPool(this.POOL_SETTING);
+  userPool = new AWSCognito.CognitoUserPool(config.cognito);
 
   signUp(email, password) {
     return new Promise((resolved, reject) => {
@@ -17,7 +13,7 @@ export class CognitoServiceProvider {
         new AWSCognito.CognitoUserAttribute({ Name: "email", Value: email })
       );
 
-      this._USER_POOL.signUp(email, password, userAttribute, null, function(
+      this.userPool.signUp(email, password, userAttribute, null, function(
         err,
         result
       ) {
@@ -34,7 +30,7 @@ export class CognitoServiceProvider {
     return new Promise((resolved, reject) => {
       const cognitoUser = new AWSCognito.CognitoUser({
         Username: userName,
-        Pool: this._USER_POOL
+        Pool: this.userPool
       });
 
       cognitoUser.confirmRegistration(verificationCode, true, function(
@@ -59,7 +55,7 @@ export class CognitoServiceProvider {
 
       const cognitoUser = new AWSCognito.CognitoUser({
         Username: email,
-        Pool: this._USER_POOL
+        Pool: this.userPool
       });
 
       cognitoUser.authenticateUser(authDetails, {
@@ -91,7 +87,7 @@ export class CognitoServiceProvider {
 
   getLoggedUser() {
     return new Promise((resolved, reject) => {
-      var cognitoUser = this._USER_POOL.getCurrentUser();
+      var cognitoUser = this.userPool.getCurrentUser();
 
       if (cognitoUser != null) {
         cognitoUser.getSession(function(err, result) {
