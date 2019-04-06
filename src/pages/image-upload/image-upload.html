@@ -8,7 +8,11 @@
   <img [src]="imageView" *ngIf="imageView" />
   <ion-row>
     <ion-col>
-      <ion-input type="text" placeholder="Image name" name="name" [(ngModel)]="imageName"></ion-input>
+      <ion-item>
+        <ion-label floating>Photo name</ion-label>
+        <ion-input type="text" name="name" [(ngModel)]="imageName"></ion-input>
+      </ion-item>
+      
     </ion-col>
   </ion-row>
   <br/>

@@ -13,6 +13,7 @@ import { S3ServiceProvider } from '../providers/s3-service/s3-service';
 import { DynamodbServiceProvider } from '../providers/dynamodb-service/dynamodb-service';
 
 import { Camera } from "@ionic-native/camera";
+import { Push } from "@ionic-native/push";
 
 @NgModule({
   declarations: [MyApp, LoginPage, SignUpPage, ImageUploadPage],
@@ -27,7 +28,7 @@ import { Camera } from "@ionic-native/camera";
     S3ServiceProvider,
     DynamodbServiceProvider,
     Camera,
-    
+    Push,
   ]
 })
 export class AppModule {}
