@@ -11,7 +11,6 @@ import { ImageUploadPage } from "../pages/image-upload/image-upload";
 import { CognitoServiceProvider } from '../providers/cognito-service/cognito-service';
 import { S3ServiceProvider } from '../providers/s3-service/s3-service';
 import { Camera } from "@ionic-native/camera";
-import { SystemVariableProvider } from '../providers/system-variable/system-variable';
 
 @NgModule({
   declarations: [MyApp, LoginPage, SignUpPage, ImageUploadPage],
@@ -25,7 +24,7 @@ import { SystemVariableProvider } from '../providers/system-variable/system-vari
     CognitoServiceProvider,
     S3ServiceProvider,
     Camera,
-    SystemVariableProvider
+    
   ]
 })
 export class AppModule {}
