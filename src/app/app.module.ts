@@ -10,6 +10,8 @@ import { SignUpPage } from "../pages/sign-up/sign-up";
 import { ImageUploadPage } from "../pages/image-upload/image-upload";
 import { CognitoServiceProvider } from '../providers/cognito-service/cognito-service';
 import { S3ServiceProvider } from '../providers/s3-service/s3-service';
+import { DynamodbServiceProvider } from '../providers/dynamodb-service/dynamodb-service';
+
 import { Camera } from "@ionic-native/camera";
 
 @NgModule({
@@ -23,6 +25,7 @@ import { Camera } from "@ionic-native/camera";
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CognitoServiceProvider,
     S3ServiceProvider,
+    DynamodbServiceProvider,
     Camera,
     
   ]
