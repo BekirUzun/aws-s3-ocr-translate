@@ -30,7 +30,7 @@ Refer [this][s3-upload-article] article for uploading image to S3 part of projec
   - Clone the project to your local machine
   - Add ``google-services.json`` that contains your FCM settings (can be downloaded from [Google Cloud Console](https://console.firebase.google.com/u/0/) > Project > Project Settings
   - Change Android package name in [config.xml](config.xml) with your own package name that is written in google-services.json
-  - Change AWS settings in [config.ts](src/config/config.ts) file with your own AWS settings
+  - Change AWS settings in [config.ts](src/shared/config.ts) file with your own AWS settings
   - Create AWS Lambda function with the content of [lambda-function.js](lambda-function.js) and give required permissions to associated role via IAM console
   - **In terminal, run below commands:**
     + ``npm install``

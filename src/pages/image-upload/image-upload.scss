@@ -2,4 +2,36 @@ page-image-upload {
     .item {
         padding-left: 0;
     }
+
+    p.title {
+        color: var(--ion-color-primary, #3880ff);
+    }
+    
+    p.original, p.translation {
+        margin-bottom: 1rem;
+        margin-left: 1rem;
+    }
+
+    .progress {
+        margin-top: 1rem;
+    }
+
+    .progress-outer {
+        width: 100%;
+        padding: 3px;
+        text-align: center;
+        background-color: #f4f4f4;
+        border: 1px solid #dcdcdc;
+        color: #fff;
+        border-radius: 20px;
+    }
+
+    .progress-inner {
+        min-width: 15%;
+        white-space: nowrap;
+        overflow: hidden;
+        padding: 5px;
+        border-radius: 20px;
+        background-color: map-get($colors, primary);
+    }
 }

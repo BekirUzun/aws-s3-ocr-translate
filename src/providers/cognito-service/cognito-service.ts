@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import * as AWSCognito from "amazon-cognito-identity-js";
-import { config } from "../../config/config"
+import { config } from "../../shared/config"
 
 @Injectable()
 export class CognitoServiceProvider {

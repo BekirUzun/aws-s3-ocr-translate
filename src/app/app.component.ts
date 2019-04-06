@@ -4,7 +4,8 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Push, PushObject } from '@ionic-native/push';
 import { LoginPage } from '../pages/login/login';
-import { config } from '../config/config';
+import { config } from '../shared/config';
+import { state } from "../shared/translation-state"
 
 @Component({
   templateUrl: 'app.html'
@@ -50,22 +51,9 @@ export class MyApp {
       console.log('recieved notification data: ', data);
       let d = data.additionalData;
 
-      if (d.foreground) {
-        const confirmAlert = await this.alertCtrl.create({
-          title: data.title,
-          message: data.message,
-          buttons: [{
-            text: 'Cancel',
-            role: 'cancel'
-          }, {
-            text: 'Show',
-            handler: () => {
-              this.showTranslation(d.imageKey, d.imageDate, d.originalText, d.translatedText);
-            }
-          }]
-        });
-        confirmAlert.present();
-      } else {
+      console.log(this.rootPage);
+      console.log(LoginPage);
+      if (!d.foreground && state.progressPercent < 20) {
         // const alert = await this.alertCtrl.create({
         //   title: 'clicked on',
         //   message: 'you clicked on the notification!',
@@ -76,6 +64,11 @@ export class MyApp {
         //coming from notification click directly show translation
         this.showTranslation(d.imageKey, d.imageDate, d.originalText, d.translatedText);
       }
+
+      state.originalText = d.originalText;
+      state.translatedText = d.translatedText;
+      state.progressPercent = 100;
+      state.progressMessage = "Translation complete.";
     });
 
     pushObject.on('error').subscribe(error => console.error('Error with Push plugin', error));
@@ -83,7 +76,7 @@ export class MyApp {
 
   showTranslation(imageKey, imageDate, originalText, translatedText) { 
     console.log("showTranslation() called", imageKey, imageDate, originalText, translatedText);
-
+    
     let alert = this.alertCtrl.create({
       title: "Translation",
       message: "Original text: " + originalText + " - Translation: " + translatedText,

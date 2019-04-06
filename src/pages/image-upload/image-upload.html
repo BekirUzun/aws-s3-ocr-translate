@@ -1,27 +1,47 @@
 <ion-header>
   <ion-navbar color="primary">
-    <ion-title>Upload Image</ion-title>
+    <ion-title>New Translation</ion-title>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <img [src]="imageView" *ngIf="imageView" />
-  <ion-row>
+  <p *ngIf="!imageData">Take a photo to translate text</p>
+  <ion-row *ngIf="imageData">
     <ion-col>
       <ion-item>
         <ion-label floating>Photo name</ion-label>
         <ion-input type="text" name="name" [(ngModel)]="imageName"></ion-input>
       </ion-item>
-      
     </ion-col>
   </ion-row>
+  <div class="progress" *ngIf="state.progressPercent > 0">
+    <ion-row>
+      <ion-col class="spinner-container" col-2 *ngIf="state.progressPercent != 100">
+        <ion-spinner></ion-spinner>
+      </ion-col>
+      <ion-col>
+        {{ state.progressMessage }}
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <div class="progress-outer">
+            <div class="progress-inner" [style.width]="state.progressPercent + '%'">
+                {{state.progressPercent}}%
+            </div>
+        </div>
+      </ion-col>
+    </ion-row>
+  </div>
+  <div *ngIf="state.translatedText">
+    <p class="title">Original Text</p>
+    <p class="original">{{ state.originalText }}</p>
+    <p class="title">Translation</p>
+    <p class="translation">{{ state.translatedText }}</p>
+  </div>
   <br/>
-  <ion-row>
-    <ion-col>
-      <button ion-button class="submit-btn" full type="submit" (click)="openCamera()">Open Camera</button>
-    </ion-col>
-    <ion-col>
-      <button ion-button class="submit-btn" [disabled]="!imageName && !imageData" full type="submit" (click)="uploadPhoto()">Upload photo</button>
-    </ion-col>
-  </ion-row>
+  <button ion-button full (click)="openCamera()">Open Camera</button>
+  <button ion-button *ngIf="imageName && imageData" full (click)="uploadPhoto()">Upload photo</button>
+    
 </ion-content>

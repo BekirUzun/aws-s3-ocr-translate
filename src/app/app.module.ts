@@ -12,12 +12,22 @@ import { CognitoServiceProvider } from '../providers/cognito-service/cognito-ser
 import { S3ServiceProvider } from '../providers/s3-service/s3-service';
 import { DynamodbServiceProvider } from '../providers/dynamodb-service/dynamodb-service';
 
+import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from "@ionic-native/camera";
 import { Push } from "@ionic-native/push";
 
 @NgModule({
-  declarations: [MyApp, LoginPage, SignUpPage, ImageUploadPage],
-  imports: [BrowserModule, IonicModule.forRoot(MyApp)],
+  declarations: [
+    MyApp, 
+    LoginPage,
+    SignUpPage,
+    ImageUploadPage,
+  ],
+  imports: [
+    BrowserModule, 
+    IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot()
+  ],
   bootstrap: [IonicApp],
   entryComponents: [MyApp, LoginPage, SignUpPage, ImageUploadPage],
   providers: [

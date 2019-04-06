@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as aws from "aws-sdk";
-import { config } from "../../config/config";
+import { config } from "../../shared/config";
 
 
 @Injectable()
