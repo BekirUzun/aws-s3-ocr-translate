@@ -22,7 +22,7 @@ export class LoginPage {
     this.CognitoSerive.authenticate(this.email, this.password).then(
       res => {
         loading.dismiss();
-        this.navCtrl.push(ImageUploadPage);
+        this.navCtrl.setRoot(ImageUploadPage);
       },
       err => {
         loading.dismiss();

@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>
-      Ionic cognito app - Sign in 
+      Sign in 
     </ion-title>
   </ion-navbar>
 </ion-header>
@@ -10,7 +10,7 @@
     <form (ngSubmit)="login()" #registerForm="ngForm">
         <ion-row>
           <ion-col>
-            <ion-list inset>
+            <ion-list>
               
               <ion-item>
                 <ion-input type="text" placeholder="Email" name="email" [(ngModel)]="email" required></ion-input>
@@ -30,9 +30,9 @@
         </ion-row>           
       </form>
 
-      <ion-row>
+      <!-- <ion-row>
         <ion-col class="signup-col">
           <button ion-button class="submit-btn" full type="submit" [navPush]="signUpPage">Sign Up</button>
         </ion-col>
-      </ion-row>  
+      </ion-row>   -->
 </ion-content>
