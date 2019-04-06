@@ -9,7 +9,7 @@ import { ImageUploadPage } from "../../pages/image-upload/image-upload";
   templateUrl: "login.html"
 })
 export class LoginPage {
-  email: string;
+  username: string;
   password: string;
   signUpPage = SignUpPage;
 
@@ -19,7 +19,7 @@ export class LoginPage {
     let loading = this.loadingCtrl.create();
     loading.present();
 
-    this.CognitoSerive.authenticate(this.email, this.password).then(
+    this.CognitoSerive.authenticate(this.username, this.password).then(
       res => {
         loading.dismiss();
         this.navCtrl.setRoot(ImageUploadPage);

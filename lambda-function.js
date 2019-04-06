@@ -4,6 +4,8 @@ var sns = new AWS.SNS({ apiVersion: '2010-03-31' });
 var rekognition = new AWS.Rekognition();
 var translate = new AWS.Translate();
 
+// change this options according to your aws account
+// this values are randomly generated to let you know what they actually look like 
 var config = {
     dynamodb: {
         tableName: "awsdemo",

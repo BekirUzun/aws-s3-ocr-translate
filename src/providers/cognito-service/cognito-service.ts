@@ -7,7 +7,7 @@ export class CognitoServiceProvider {
   userPool = new AWSCognito.CognitoUserPool(config.cognito);
 
   signUp(email, password) {
-    return new Promise((resolved, reject) => {
+    return new Promise((resolve, reject) => {
       let userAttribute = [];
       userAttribute.push(
         new AWSCognito.CognitoUserAttribute({ Name: "email", Value: email })
@@ -20,14 +20,14 @@ export class CognitoServiceProvider {
         if (err) {
           reject(err);
         } else {
-          resolved(result);
+          resolve(result);
         }
       });
     });
   }
 
   confirmUser(verificationCode, userName) {
-    return new Promise((resolved, reject) => {
+    return new Promise((resolve, reject) => {
       const cognitoUser = new AWSCognito.CognitoUser({
         Username: userName,
         Pool: this.userPool
@@ -40,14 +40,14 @@ export class CognitoServiceProvider {
         if (err) {
           reject(err);
         } else {
-          resolved(result);
+          resolve(result);
         }
       });
     });
   }
 
   authenticate(email, password) {
-    return new Promise((resolved, reject) => {
+    return new Promise((resolve, reject) => {
       const authDetails = new AWSCognito.AuthenticationDetails({
         Username: email,
         Password: password
@@ -60,7 +60,7 @@ export class CognitoServiceProvider {
 
       cognitoUser.authenticateUser(authDetails, {
         onSuccess: result => {
-          resolved(result.getAccessToken().getJwtToken());
+          resolve(result.getAccessToken().getJwtToken());
         },
         onFailure: err => {
           reject(err);
@@ -86,13 +86,13 @@ export class CognitoServiceProvider {
   }
 
   getLoggedUser() {
-    return new Promise((resolved, reject) => {
+    return new Promise((resolve, reject) => {
       var cognitoUser = this.userPool.getCurrentUser();
 
       if (cognitoUser != null) {
         cognitoUser.getSession(function(err, result) {
           if (result) {
-            resolved(result.getIdToken().getJwtToken());
+            resolve(result.getIdToken().getJwtToken());
           } else {
             reject(err);
           }
