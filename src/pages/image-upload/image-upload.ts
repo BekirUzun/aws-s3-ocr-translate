@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, ViewChild } from "@angular/core";
 import {
   NavController,
   NavParams,
@@ -8,6 +8,7 @@ import {
 } from "ionic-angular";
 import { CognitoServiceProvider } from "../../providers/cognito-service/cognito-service";
 import { Camera, CameraOptions } from "@ionic-native/camera";
+import { AngularCropperjsComponent } from 'angular-cropperjs';
 import { S3ServiceProvider } from "../../providers/s3-service/s3-service";
 import { DynamodbServiceProvider } from "../../providers/dynamodb-service/dynamodb-service";
 import { config } from "../../shared/config";
@@ -27,13 +28,24 @@ export class ImageUploadPage {
   public progressPercent = 0;
   public progressMsg = "";
   public state;
+  cropperOptions: any;
 
+  @ViewChild('angularCropper') public angularCropper: AngularCropperjsComponent;
+  
   constructor(
     public navCtrl: NavController, public navParams: NavParams, public cognitoService: CognitoServiceProvider,
       public platform: Platform, private camera: Camera, public s3Service: S3ServiceProvider, private loader: AlertController,
-      private dynamoService: DynamodbServiceProvider 
+      private dynamoService: DynamodbServiceProvider
   ) { 
     this.state = state;
+    this.cropperOptions = {
+      dragMode: 'move',
+      viewMode: 1,
+      movable: true,
+      zoomable: true,
+      scalable: true,
+      
+    };
   }
 
   openCamera() {
@@ -50,7 +62,10 @@ export class ImageUploadPage {
       };
 
       this.camera.getPicture(options).then(
+
         imageData => {
+          console.log();
+          
           this.imageView = "data:image/jpeg;base64," + imageData;
           this.imageData = imageData;
           let d = new Date();
@@ -72,6 +87,10 @@ export class ImageUploadPage {
     //   subTitle: 'Uploading photo. Please wait...'
     // });
     // loading.present();
+    
+
+    let croppedView: string = this.angularCropper.cropper.getCroppedCanvas().toDataURL('image/jpeg', (100 / 100));
+    let croppedData = croppedView.substr(croppedView.indexOf("base64,") + 7);
 
     this.setProgress(5, 'Getting translation token.');
 
@@ -81,7 +100,7 @@ export class ImageUploadPage {
       this.dynamoService.insert(userToken, this.imageName + ".jpg", config.pushRegisterId, this.imageDate).then( data => {
 
         this.setProgress(25, 'Uploading photo.');
-        this.s3Service.upload(this.imageData, this.imageName + ".jpg", userToken).then(
+        this.s3Service.upload(croppedData, this.imageName + ".jpg", userToken).then(
           res => {
             // loading.dismiss();
             // this.imageName = "";
@@ -110,5 +129,19 @@ export class ImageUploadPage {
   setProgress(percent, message) {
     state.progressPercent = percent;
     state.progressMessage = message;
+  }
+
+  rotate() {
+    this.angularCropper.cropper.rotate(90);
+  }
+ 
+  zoom(zoomIn: boolean) {
+    let factor = zoomIn ? 0.1 : -0.1;
+    this.angularCropper.cropper.zoom(factor);
+  }
+  
+  cropperTouchStart(event){
+    event.stopPropagation();
+    event.preventDefault(); //Most important
   }
 }

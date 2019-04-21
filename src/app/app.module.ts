@@ -14,6 +14,7 @@ import { DynamodbServiceProvider } from '../providers/dynamodb-service/dynamodb-
 
 import { IonicStorageModule } from '@ionic/storage';
 import { Camera } from "@ionic-native/camera";
+import { AngularCropperjsModule } from 'angular-cropperjs'
 import { Push } from "@ionic-native/push";
 
 @NgModule({
@@ -25,6 +26,7 @@ import { Push } from "@ionic-native/push";
   ],
   imports: [
     BrowserModule, 
+    AngularCropperjsModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot()
   ],

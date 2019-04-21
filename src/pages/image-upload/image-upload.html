@@ -4,10 +4,30 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <img [src]="imageView" *ngIf="imageView" />
-  <p *ngIf="!imageData">Take a photo to translate text</p>
-  <ion-row *ngIf="imageData">
+<ion-content>
+  <!-- <img [src]="imageView" *ngIf="imageView" /> -->
+ 
+  <angular-cropper #angularCropper (touchstart)="cropperTouchStart($event)" [cropperOptions]="cropperOptions" [imageUrl]="imageView" *ngIf="imageView"></angular-cropper>
+  <ion-row *ngIf="imageView">
+    <ion-col col-4>
+      <button ion-button outline icon-left color="primary" (click)="zoom(true)">
+        <ion-icon name="add"></ion-icon> Zoom
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button outline icon-left color="primary" (click)="zoom(false)">
+        <ion-icon name="remove"></ion-icon> Zoom
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button outline icon-left (click)="rotate()">
+        <ion-icon name="refresh"></ion-icon> Rotate
+      </button>
+    </ion-col>
+  </ion-row>
+
+  <p *ngIf="!imageView">Take a photo to translate text</p>
+  <ion-row *ngIf="imageView">
     <ion-col>
       <ion-item>
         <ion-label floating>Photo name</ion-label>
@@ -15,6 +35,10 @@
       </ion-item>
     </ion-col>
   </ion-row>
+
+  
+  
+
   <div class="progress" *ngIf="state.progressPercent > 0">
     <ion-row>
       <ion-col class="spinner-container" col-2 *ngIf="state.progressPercent != 100">

@@ -1,4 +1,7 @@
 page-image-upload {
+    .scroll-content {
+        padding: 16px 25px 16px 25px;
+    }
     .item {
         padding-left: 0;
     }
@@ -33,5 +36,9 @@ page-image-upload {
         padding: 5px;
         border-radius: 20px;
         background-color: map-get($colors, primary);
+    }
+
+    .angular-cropper-wrapper, .angular-cropper-wrapper * { 
+        max-height: 450px;
     }
 }

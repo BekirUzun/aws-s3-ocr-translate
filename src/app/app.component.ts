@@ -48,7 +48,7 @@ export class MyApp {
     });
 
     pushObject.on('notification').subscribe( async (data: any) => {
-      console.log('recieved notification data: ', data);
+      console.log('recieved notification data: ', JSON.stringify( data));
       let d = data.additionalData;
 
       console.log(this.rootPage);
