@@ -36,6 +36,9 @@ Refer [this][s3-upload-article] article for uploading image to S3 part of projec
     + ``npm install``
     + ``ionic cordova run android --debug --livereload``
 
+## Screenshot
+<img src="screenshots/2.png" alt="Screenshot" width="300px"/>
+
 ## App Logic Explanation
   - User logins to the app
   - User takes a photo that contains text to translate
@@ -47,7 +50,7 @@ Refer [this][s3-upload-article] article for uploading image to S3 part of projec
   - Lambda function translates text with Translate service
   - Lambda function stores original and translated text in DynamoDB
   - Lambda function sends a push notification via SNS that contains original and translated text data
-  
+
 [fcm]:https://firebase.google.com/products/cloud-messaging/
 [sns]:https://aws.amazon.com/sns/
 [s3]:https://aws.amazon.com/s3/
